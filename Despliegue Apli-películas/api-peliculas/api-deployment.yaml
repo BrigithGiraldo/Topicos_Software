@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-peliculas-deployment
+  labels:
+    app: api-peliculas
+    version: "1.0"
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: api-peliculas
+  template:
+    metadata:
+      labels:
+        app: api-peliculas
+        version: "1.0"
+    spec:
+      containers:
+      - name: api-peliculas
+        image: blgiraldov/api-peliculas
+        ports:
+          - name: http-server
+            containerPort: 5000
+        env:
+          - name: DATABASE_URL
+            value: postgresql+psycopg2://postgres:123447a47f563e90fe2db0f56b1b17be62378e31b7cfd3adc776c59ca4c75e2fc512c15f69bb38307d11d5d17a41a7936789@localhost:5432/films
